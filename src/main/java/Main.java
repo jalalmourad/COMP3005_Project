@@ -11,7 +11,7 @@ public class Main {
     // registration for new members
     public void addMember(String first_name, String last_name, Date date_joined, int member_weight, int member_height, Time member_time, String track_exercise_routine) {
 
-        String url = "jdbc:postgresql://localhost:5432/Question1";
+        String url = "jdbc:postgresql://localhost:5432/Project";
         String user = "postgres";
         String password = "postgres";
 
@@ -65,7 +65,7 @@ public class Main {
     //Schedules a training session after checking the Trainer's availability
     public void scheduleManagement(int member_id) {
 
-        String url = "jdbc:postgresql://localhost:5432/Question1";
+        String url = "jdbc:postgresql://localhost:5432/Project";
         String user = "postgres";
         String password = "postgres";
 
@@ -227,7 +227,7 @@ public class Main {
 
     // a function that displays exercise routines, fitness achievements, and health statistics based on a given user id
     public void displayDashboard(int member_id) {
-        String url = "jdbc:postgresql://localhost:5432/Question1";
+        String url = "jdbc:postgresql://localhost:5432/Project";
         String user = "postgres";
         String password = "postgres";
 
@@ -277,7 +277,7 @@ public class Main {
     //
 
     public void scheduleManagement(int trainer_id, Time appointment_time, Date appointment_date, Date appointment_room) {
-        String url = "jdbc:postgresql://localhost:5432/Question1";
+        String url = "jdbc:postgresql://localhost:5432/Project";
         String user = "postgres";
         String password = "postgres";
 
