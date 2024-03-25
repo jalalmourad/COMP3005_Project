@@ -9,11 +9,7 @@ public class Main {
     //
 
     // registration for new members
-    public void addMember(String first_name, String last_name, Date date_joined, int member_weight, int member_height, Time member_time, String track_exercise_routine) {
-
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void addMember(String url, String user, String password, String first_name, String last_name, Date date_joined, int member_weight, int member_height, Time member_time, String track_exercise_routine) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -39,11 +35,8 @@ public class Main {
 
 
     //Checks the availability of the trainer
-    public void checkAvailability(Time appointment_time, Date appointment_date) {
+    public void checkAvailability(String url, String user, String password, Time appointment_time, Date appointment_date) {
 
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -63,11 +56,7 @@ public class Main {
     }
 
     //Schedules a training session after checking the Trainer's availability
-    public void scheduleManagement(int member_id) {
-
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void scheduleManagement(String url, String user, String password, int member_id) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -165,10 +154,7 @@ public class Main {
      * Helper functions for manage profile
      */
 
-    public void updateWeight(int member_id, int member_weight) {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void updateWeight(String url, String user, String password, int member_id, int member_weight) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -185,10 +171,8 @@ public class Main {
         }
     }
 
-    public void updateTime(int member_id, int member_time) {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "user";
-        String password = "password";
+    public void updateTime(String url, String user, String password, int member_id, int member_time) {
+        
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -205,10 +189,8 @@ public class Main {
         }
     }
 
-    public void updateExcerciseRoutine(int member_id, String routine) {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void updateExcerciseRoutine(String url, String user, String password, int member_id, String routine) {
+        
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -226,10 +208,7 @@ public class Main {
     }
 
     // a function that displays exercise routines, fitness achievements, and health statistics based on a given user id
-    public void displayDashboard(int member_id) {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void displayDashboard(String url, String user, String password, int member_id) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -276,10 +255,7 @@ public class Main {
     // Trainer Functions
     //
 
-    public void scheduleManagement(int trainer_id, Time appointment_time, Date appointment_date, Date appointment_room) {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void scheduleManagement(String url, String user, String password, int trainer_id, Time appointment_time, Date appointment_date, Date appointment_room) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -307,11 +283,7 @@ public class Main {
         }
     }
 
-    public void memberProfileViewing(String first_name, String last_name) {
-
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void memberProfileViewing(String url, String user, String password, String first_name, String last_name) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -337,11 +309,7 @@ public class Main {
     }
 
     //Returns the most recent date the equipment had maintenance
-    public void equipmentMaintenanceMonitoring() {
-
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void equipmentMaintenanceMonitoring(String url, String user, String password, ) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -412,10 +380,8 @@ public class Main {
     */
 
     // delete room booking
-    public void cancelRoomBooking(int schedule_id){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void cancelRoomBooking(String url, String user, String password, int schedule_id){
+        
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -438,10 +404,8 @@ public class Main {
     }
 
     // time must be of hrs:mins:secs format
-    public void rescheduleBookingTime (int schedule_id, String time){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void rescheduleBookingTime (String url, String user, String password, int schedule_id, String time){
+        
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -459,10 +423,8 @@ public class Main {
         }
     }
 
-    public void rescheduleBookingDate (int schedule_id, String date){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void rescheduleBookingDate (String url, String user, String password, int schedule_id, String date){
+        
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -480,10 +442,8 @@ public class Main {
         }
     }
 
-    private boolean isRoomBooked(String date, int room_num){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    private boolean isRoomBooked(String url, String user, String password, String date, int room_num){
+        
 
         try{
             Class.forName("org.postgresql.Driver");
@@ -509,10 +469,8 @@ public class Main {
         }
     }
 
-    public void rescheduleBookingRoom (int schedule_id, int room_num, String date){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "poster";
-        String password = "postgres";
+    public void rescheduleBookingRoom (String url, String user, String password, int schedule_id, int room_num, String date){
+        
 
         if(isRoomBooked(date, room_num)){
             System.out.println("Room is booked for this time slot!");
@@ -538,10 +496,7 @@ public class Main {
 
 
     // Updates the class room number, Date and Time.
-    public void classScheduleUpdate ( int schedule_id, int appointment_room, Date appointment_date, Time appointment_time ){
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
+    public void classScheduleUpdate (String url, String user, String password, int schedule_id, int appointment_room, Date appointment_date, Time appointment_time ){
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -562,12 +517,9 @@ public class Main {
 
     // Here we will process billing once daily and if any members have join dates that occurred
     // on the same day of the month as today's date they will be billed
-    public void BillingAndPayment(Date current_date)
+    public void BillingAndPayment(String url, String user, String password, Date current_date)
     {
-        String url = "jdbc:postgresql://localhost:5432/Project";
-        String user = "postgres";
-        String password = "postgres";
-
+        
         try
         {
             Class.forName("org.postgresql.Driver");
@@ -590,6 +542,8 @@ public class Main {
         catch (Exception e) {}
     }
 
+    
+    
     public static void main (String[]args)
     {
         // store the url, users name and users password to connect to our db
@@ -603,7 +557,8 @@ public class Main {
         System.out.println("Enter password");
         String password = in.nextLine();
 
-
+        
+        
         while (true) {
             break;
         }
