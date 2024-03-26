@@ -542,6 +542,111 @@ public class Main {
         catch (Exception e) {}
     }
 
+
+    public void memberLoop(String url, String user, String password)
+    {
+         Scanner in = new Scanner(System.in);
+
+        while (true)
+        {
+            System.out.println("Enter");
+            String choice = in.nextLine();
+            int userChoice = Integer.parseInt(c);
+
+            if (userChoice == 1)
+            {
+                
+            }
+            else if (userChoice == 2)
+            {
+                
+            }
+            else if (userChoice == 3)
+            {
+                
+            }
+            else if (userChoice == 4)
+            {
+                break;
+            }
+            else 
+            {
+                System.out.println("invalid choice");
+            }
+        }
+        
+        in.close();
+    }
+
+    public void trainerLoop(String url, String user, String password)
+    {
+        Scanner in = new Scanner(System.in);
+
+        while (true)
+        {
+            System.out.println("Enter");
+            String choice = in.nextLine();
+            int userChoice = Integer.parseInt(c);
+
+            if (userChoice == 1)
+            {
+                
+            }
+            else if (userChoice == 2)
+            {
+                
+            }
+            else if (userChoice == 3)
+            {
+                
+            }
+            else if (userChoice == 4)
+            {
+                break;
+            }
+            else 
+            {
+                System.out.println("invalid choice");
+            }
+        }
+        
+        in.close();
+    }
+
+    public void adminLoop(String url, String user, String password)
+    {
+        Scanner in = new Scanner(System.in);
+
+        while (true)
+        {
+            System.out.println("Enter");
+            String choice = in.nextLine();
+            int userChoice = Integer.parseInt(c);
+
+            if (userChoice == 1)
+            {
+                
+            }
+            else if (userChoice == 2)
+            {
+                
+            }
+            else if (userChoice == 3)
+            {
+                
+            }
+            else if (userChoice == 4)
+            {
+                break;
+            }
+            else 
+            {
+                System.out.println("invalid choice");
+            }
+        }
+        
+        in.close();
+    }
     
     
     public static void main (String[]args)
@@ -557,13 +662,34 @@ public class Main {
         System.out.println("Enter password");
         String password = in.nextLine();
 
-        
-        
-        while (true) {
-            break;
+        while (true)
+        {
+            System.out.println("Enter '1' for user functionality, '2' for trainer functionality, and '3' for admin functionality, and 4 to exit the program");
+            String type = in.nextLine();
+            int user_type = Integer.parseInt(c);
+
+            if (user_type == 1)
+            {
+                
+            }
+            else if (user_type == 2)
+            {
+                
+            }
+            else if (user_type == 3)
+            {
+                
+            }
+            else if (user_type == 4)
+            {
+                break;
+            }
+            else 
+            {
+                System.out.println("invalid choice");
+            }
         }
-
-
+        
         in.close();
     }
 }
