@@ -38,6 +38,7 @@ CREATE TABLE Equipment
     equipment_id SERIAL,
     equipment_name text,
     equipment_maintenance_date Date,
+    admin_id int REFERENCES Administrative_Staff(admin_id),
     primary key (equipment_id)
 );
 
