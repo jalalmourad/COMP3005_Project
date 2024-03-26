@@ -30,6 +30,7 @@ public class Main {
 
 
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -52,6 +53,7 @@ public class Main {
             }
 
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -111,17 +113,17 @@ public class Main {
             connection.close();
 
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
     // update personal information -> fitness goals, health metrics etc.
-    public void manageProfile(int member_id) {
+    public void manageProfile(String url, String user, String password, int member_id) {
         Scanner in = new Scanner(System.in);
 
         System.out.println("What would you like to update?\n1. Weight\n2. Time for exercise completions (running)\n3. Exercise routine\n4. Quit");
 
-        Boolean select = false;
-        while (select == false) {
+        while (true) {
             String c = in.nextLine();
             int userChoice = Integer.parseInt(c);
 
@@ -130,18 +132,18 @@ public class Main {
                 String w = in.nextLine();
 
                 int weight = Integer.parseInt(w);
-                updateWeight(member_id, weight);
+                updateWeight( url, user, password, member_id, weight);
             } else if (userChoice == 2) {
                 System.out.println("What is your new time?");
                 String t = in.nextLine();
 
                 int time = Integer.parseInt(t);
-                updateTime(member_id, time);
+                updateTime(url,  user,  password, member_id, time);
             } else if (userChoice == 3) {
                 System.out.println("What is your new exercise routine?");
                 String routine = in.nextLine();
 
-                updateExcerciseRoutine(member_id, routine);
+                updateExcerciseRoutine(url,  user,  password, member_id, routine);
             } else if (userChoice == 4) {
                 break;
             } else {
@@ -168,6 +170,7 @@ public class Main {
                 prepare.executeUpdate();
             }
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -186,6 +189,7 @@ public class Main {
                 prepare.executeUpdate();
             }
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -204,6 +208,7 @@ public class Main {
                 prepare.executeUpdate();
             }
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -248,6 +253,7 @@ public class Main {
             }
             connection.close();
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -280,6 +286,7 @@ public class Main {
             connection.close();
 
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -305,11 +312,12 @@ public class Main {
                 System.out.println(resultSet.getString("track_exercise_routine"));
             }
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
     //Returns the most recent date the equipment had maintenance
-    public void equipmentMaintenanceMonitoring(String url, String user, String password, ) {
+    public void equipmentMaintenanceMonitoring(String url, String user, String password) {
 
         try {
             Class.forName("org.postgresql.Driver");
@@ -324,6 +332,7 @@ public class Main {
                 System.out.print(resultSet.getDate("equipment_maintenance_date"));
             }
         } catch (Exception e) {
+            System.out.println("Error: " + e);
         }
     }
 
@@ -342,18 +351,16 @@ public class Main {
      * Administrator should have option to cancel a room booking -> delete a row of schedule_id, member_id, trainer_id, appointment_time, appointment_date and appointment_room
      * Administrator should have option to reschedule room booking -> update time and/or date of room booking and/or appointment_room
      */
-    public void manageRoomBooking(int schedule_id) {
+    public void manageRoomBooking(String url, String user, String password, int schedule_id) {
         Scanner in = new Scanner(System.in);
 
         System.out.println("1. Cancel booking\n2. Reschedule Booking");
 
-        Boolean select = false;
-        while (select == false) {
+        while (true) {
             String c = in.nextLine();
             int userChoice = Integer.parseInt(c);
             if (userChoice == 1) {
-                cancelRoomBooking(schedule_id);
-                select = true;
+                cancelRoomBooking(url, user, password, schedule_id);
             } else if (userChoice == 2) {
                 System.out.println("New booking time (HH:mm:ss): ");
                 String time = in.nextLine();
@@ -365,11 +372,14 @@ public class Main {
                 String r = in.nextLine();
                 int room = Integer.parseInt(r);
 
-                rescheduleBookingTime(schedule_id, time);
-                rescheduleBookingDate(schedule_id, date);
-                rescheduleBookingRoom(schedule_id, room, date);
-                select = true;
-            } else {
+                rescheduleBookingTime(url, user, password, schedule_id, time);
+                rescheduleBookingDate(url, user, password, schedule_id, date);
+                rescheduleBookingRoom(url, user, password, schedule_id, room, date);
+            }else if (userChoice == 3)
+            {
+                break;
+            }
+            else {
                 System.out.println("Invalid option. Please select either 1 or 2");
             }
         }
@@ -394,7 +404,7 @@ public class Main {
                 prepare.executeUpdate();
             }
 
-            statement = connection.createStatement();
+            Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM member_booking WHERE schedule_id = '" + schedule_id + "'");
 
             
@@ -472,7 +482,7 @@ public class Main {
     public void rescheduleBookingRoom (String url, String user, String password, int schedule_id, int room_num, String date){
         
 
-        if(isRoomBooked(date, room_num)){
+        if(isRoomBooked(url, user, password, date, room_num)){
             System.out.println("Room is booked for this time slot!");
         }
         else{
@@ -512,6 +522,7 @@ public class Main {
                 prepare.executeUpdate();
             }
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -539,7 +550,9 @@ public class Main {
 
             connection.close();
         }
-        catch (Exception e) {}
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -551,7 +564,7 @@ public class Main {
         {
             System.out.println("Enter");
             String choice = in.nextLine();
-            int userChoice = Integer.parseInt(c);
+            int userChoice = Integer.parseInt(choice);
 
             if (userChoice == 1)
             {
@@ -586,7 +599,7 @@ public class Main {
         {
             System.out.println("Enter");
             String choice = in.nextLine();
-            int userChoice = Integer.parseInt(c);
+            int userChoice = Integer.parseInt(choice);
 
             if (userChoice == 1)
             {
@@ -621,7 +634,7 @@ public class Main {
         {
             System.out.println("Enter");
             String choice = in.nextLine();
-            int userChoice = Integer.parseInt(c);
+            int userChoice = Integer.parseInt(choice);
 
             if (userChoice == 1)
             {
@@ -666,7 +679,7 @@ public class Main {
         {
             System.out.println("Enter '1' for user functionality, '2' for trainer functionality, and '3' for admin functionality, and 4 to exit the program");
             String type = in.nextLine();
-            int user_type = Integer.parseInt(c);
+            int user_type = Integer.parseInt(type);
 
             if (user_type == 1)
             {
