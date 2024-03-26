@@ -1,15 +1,31 @@
-# COMP3005_Project
+Description:
+-----------
 
-Owen Hobbs SN: 101197523
-Owen Yang SN: 101185223
+This project contains 1 java class, 2 diagram,and 1 ReadMe.txt file.
+
+In this project we created a Health and Fitness Club Management System. 
+This system serves as a comprehensive platform catering to the diverse needs of club members, trainers, and administrative staff.
+
+The Project is made up of one file:
+Main.java                           A single Java script
+ER Diagram                          A single image of an ER diagram
+Schema Diagram                      A single image of a schema diagram
+
+Installation:
+-------------
+To be able to run the program, you should have Java 15.0.0 or later installed on your
+computer.
+
+Usage:
+------
+>Main.java: In this class, we implemented functions for Members, Trainers, and Administrative staff of the Health and Fitness club
 
 
-To run, download the IntelliJ ide and open the porject, then nevigate to main.java (/src/main/java/Main.java), and execute by pressing the green 'run' icon
+Credits:
+--------
 
-IntelliJ website: (available free through the community edition) https://www.jetbrains.com/idea/download/?section=windows
+Jalal Mourad 101195065
+Owen Yang 101185223
+Owen Hobbs 101197523
 
-in pgadmin4 create a databse with the name of Project, right click and select query tool, input the sql code provided to create and populate a databse to be queried using the code found in this git.
-
-
-Video showing functionality: 
-
+Copyright 2024 Jalal Mourad, Owen Yang, Owen Hobbs
