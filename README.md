@@ -1,6 +1,7 @@
 # COMP3005_Project
 
 Owen Hobbs SN: 101197523
+Owen Yang SN: 101185223
 
 
 To run, download the IntelliJ ide and open the porject, then nevigate to main.java (/src/main/java/Main.java), and execute by pressing the green 'run' icon
