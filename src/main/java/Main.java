@@ -147,9 +147,10 @@ public class Main {
         
         
         Scanner in = new Scanner(System.in);
-        System.out.println("What would you like to update?\n1. Weight\n2. Time for exercise completions (running)\n3. Exercise routine\n4. Quit");
 
         while (true) {
+            System.out.println("What would you like to update?\n1. Weight\n2. Time for exercise completions (running)\n3. Exercise routine\n4. Quit");
+
             String c = in.nextLine();
             int userChoice = Integer.parseInt(c);
 
