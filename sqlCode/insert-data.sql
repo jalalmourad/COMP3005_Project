@@ -22,12 +22,6 @@ VALUES
 ( 2, '10:00:00', '2024-09-07', 503),
 ( 3, '09:15:00', '2024-10-01', 501);
 
-INSERT INTO Schedule( trainer_id, appointment_time, appointment_date, appointment_room)
-VALUES
-( 1, '12:45:00', '2024-09-01', 501),
-( 2, '10:00:00', '2024-09-07', 503),
-( 3, '09:15:00', '2024-10-01', 501);
-
 --Insert to Administrative staff table
 INSERT INTO administrative_Staff(first_name, last_name)
 VALUES
