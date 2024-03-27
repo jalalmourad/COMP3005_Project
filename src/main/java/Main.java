@@ -394,6 +394,7 @@ public class Main {
             int userChoice = Integer.parseInt(c);
             if (userChoice == 1) {
                 cancelRoomBooking(url, user, password, schedule_id);
+                return;
             } else if (userChoice == 2) {
                 System.out.println("New booking time (HH:mm:ss): ");
                 String time = in.nextLine();
