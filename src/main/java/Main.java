@@ -292,6 +292,7 @@ public class Main {
     // Trainer Functions
     //
 
+    
     public static void scheduleManagement(String url, String user, String password, int trainer_id, Time appointment_time, Date appointment_date, int appointment_room) {
 
         try {
@@ -329,11 +330,14 @@ public class Main {
 
 
             Statement statement = connection.createStatement();
-            statement.executeQuery("SELECT * FROM members WHERE first_name= '" + first_name + "' AND last_name = ' " + last_name + "' ;");
+            statement.executeQuery("SELECT * FROM members WHERE first_name= '" + first_name + "' AND last_name = '" + last_name + "' ;");
             ResultSet resultSet = statement.getResultSet();
+
+            //System.out.print("here");
+
             while (resultSet.next()) {
                 System.out.print(resultSet.getInt("member_id") + "\t");
-                System.out.print(resultSet.getString("last_name") + "\t");
+                System.out.print(resultSet.getString("first_name") + "\t");
                 System.out.print(resultSet.getString("last_name") + "\t");
                 System.out.print(resultSet.getString("date_joined") + "\t");
                 System.out.print(resultSet.getString("fee") + "\t");
