@@ -611,19 +611,19 @@ public class Main {
 
             if (userChoice == 1)
             {
-                System.out.println("Enter first name");
+                System.out.println("Enter first name: ");
                 String first_name = in.nextLine();
-                System.out.println("Enter last name");
+                System.out.println("Enter last name: ");
                 String last_name = in.nextLine();
-                System.out.println("Enter Date joined");
+                System.out.println("Enter Date joined:");
                 Date date_joined = Date.valueOf(in.nextLine());
-                System.out.println("Enter weight");
+                System.out.println("Enter weight:");
                 int member_weight = Integer.parseInt(in.nextLine());
-                System.out.println("Enter height");
+                System.out.println("Enter height:");
                 int member_height = Integer.parseInt(in.nextLine());
-                System.out.println("Enter time");
+                System.out.println("Enter time:");
                 int member_time = Integer.parseInt(in.nextLine());
-                System.out.println("Enter routine");
+                System.out.println("Enter routine:");
                 String track_exercise_routine = in.nextLine();
 
                 addMember(url, user, password, first_name, last_name, date_joined, member_weight, member_height, member_time, track_exercise_routine);
@@ -631,21 +631,21 @@ public class Main {
             }
             else if (userChoice == 2)
             {
-                System.out.println("Enter member id");
+                System.out.println("Enter member id: ");
                 int member_id = Integer.parseInt(in.nextLine());
                 manageProfile(url, user, password, member_id);
 
             }
             else if (userChoice == 3)
             {
-                System.out.println("Enter member id");
+                System.out.println("Enter member id: ");
                 int member_id = Integer.parseInt(in.nextLine());
                 displayDashboard(url, user, password, member_id);
  
             }
             else if (userChoice == 4)
             {
-                System.out.println("Enter member id");
+                System.out.println("Enter member id: ");
                 int member_id = Integer.parseInt(in.nextLine());
                 scheduleManagement(url, user, password, member_id);
 
@@ -673,22 +673,22 @@ public class Main {
 
             if (userChoice == 1)
             {
-                System.out.println("Enter trainer id");
+                System.out.println("Enter trainer id:");
                 int trainer_id = Integer.parseInt(in.nextLine());
-                System.out.println("Enter appointment time (HH:MM:SS)");
+                System.out.println("Enter appointment time (HH:MM:SS):");
                 Time appointment_time = Time.valueOf(in.nextLine());
-                System.out.println("Enter appointment Date: (YYYY-MM-DD)");
+                System.out.println("Enter appointment Date: (YYYY-MM-DD):");
                 Date appointment_date = Date.valueOf(in.nextLine());
-                System.out.println("Enter appointment Room");
+                System.out.println("Enter appointment Room:");
                 int appointment_room = Integer.parseInt(in.nextLine());
 
                 scheduleManagement(url, user, password, trainer_id, appointment_time, appointment_date, appointment_room);
             }
             else if (userChoice == 2)
             {
-                System.out.println("Enter first_name");
+                System.out.println("Enter member first_name:");
                 String first_name = in.nextLine();
-                System.out.println("Enter last_name");
+                System.out.println("Enter member last_name:");
                 String last_name = in.nextLine();
 
                 memberProfileViewing(url, user, password, first_name, last_name);
@@ -716,7 +716,7 @@ public class Main {
 
             if (userChoice == 1)
             {
-                System.out.println("Enter schedule id");
+                System.out.println("Enter schedule id:");
                 int schedule_id = Integer.parseInt(in.nextLine());
                 manageRoomBooking(url, user, password, schedule_id);
             }
@@ -726,13 +726,13 @@ public class Main {
             }
             else if (userChoice == 3)
             {
-                System.out.println("Enter schedule id");
+                System.out.println("Enter schedule id:");
                 int schedule_id = Integer.parseInt(in.nextLine());
-                System.out.println("Enter appointment time (HH:MM:SS)");
+                System.out.println("Enter appointment time (HH:MM:SS):");
                 Time appointment_time = Time.valueOf(in.nextLine());
-                System.out.println("Enter appointment Date: (YYYY-MM-DD)");
+                System.out.println("Enter appointment Date: (YYYY-MM-DD):");
                 Date appointment_date = Date.valueOf(in.nextLine());
-                System.out.println("Enter appointment Room");
+                System.out.println("Enter appointment Room:");
                 int appointment_room = Integer.parseInt(in.nextLine());
                 classScheduleUpdate(url, user, password, schedule_id, appointment_room, appointment_date, appointment_time);
             }
@@ -790,10 +790,10 @@ public class Main {
 
         Scanner in = new Scanner(System.in);
 
-        System.out.println("Enter username");
+        System.out.println("Enter username:");
         String user = in.nextLine();
 
-        System.out.println("Enter password");
+        System.out.println("Enter password:");
         String password = in.nextLine();
 
         run_program(url, user, password);
