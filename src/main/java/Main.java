@@ -119,8 +119,34 @@ public class Main {
 
     // update personal information -> fitness goals, health metrics etc.
     public static void manageProfile(String url, String user, String password, int member_id) {
-        Scanner in = new Scanner(System.in);
+        
+        try
+        {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(url, user, password);
 
+            Statement statement = connection.createStatement();
+            statement.executeQuery("SELECT COUNT(*) FROM members WHERE member_id = '" + member_id + "';");
+            ResultSet resultSet = statement.getResultSet();
+
+            resultSet.next();
+
+            if (resultSet.getInt("count") == 0)
+            {
+                System.out.println("No member with user id: " + member_id + " exists\n");
+                return;
+            }
+
+            connection.close();
+        }
+        catch (Exception e)
+        {
+            System.out.println("Error: " + e);
+            return;
+        }
+        
+        
+        Scanner in = new Scanner(System.in);
         System.out.println("What would you like to update?\n1. Weight\n2. Time for exercise completions (running)\n3. Exercise routine\n4. Quit");
 
         while (true) {
