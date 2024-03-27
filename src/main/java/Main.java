@@ -280,6 +280,7 @@ public class Main {
                 System.out.print(resultSet.getInt("goal_weight") + "\t");
                 System.out.print(resultSet.getInt("start_time") + "\t");
                 System.out.print(resultSet.getInt("goal_time") + "\t");
+                System.out.println("\n");
             }
             connection.close();
         } catch (Exception e) {
@@ -586,7 +587,7 @@ public class Main {
     }
 
 
-    public static void memberLoop(String url, String user, String password)
+    public static int memberLoop(String url, String user, String password)
     {
          Scanner in = new Scanner(System.in);
 
@@ -614,39 +615,41 @@ public class Main {
                 String track_exercise_routine = in.nextLine();
 
                 addMember(url, user, password, first_name, last_name, date_joined, member_weight, member_height, member_time, track_exercise_routine);
+
             }
             else if (userChoice == 2)
             {
                 System.out.println("Enter member id");
                 int member_id = Integer.parseInt(in.nextLine());
                 manageProfile(url, user, password, member_id);
+
             }
             else if (userChoice == 3)
             {
                 System.out.println("Enter member id");
                 int member_id = Integer.parseInt(in.nextLine());
                 displayDashboard(url, user, password, member_id);
+ 
             }
             else if (userChoice == 4)
             {
                 System.out.println("Enter member id");
                 int member_id = Integer.parseInt(in.nextLine());
                 scheduleManagement(url, user, password, member_id);
+
             }
             else if (userChoice == 5)
             {
-                break;
+                return -1;
             }
             else 
             {
                 System.out.println("invalid choice");
             }
         }
-        
-        in.close();
     }
 
-    public static void trainerLoop(String url, String user, String password)
+    public static int trainerLoop(String url, String user, String password)
     {
         Scanner in = new Scanner(System.in);
 
@@ -680,18 +683,16 @@ public class Main {
             }
             else if (userChoice == 3)
             {
-                break;
+                return -1;
             }
             else 
             {
                 System.out.println("invalid choice");
             }
         }
-        
-        in.close();
     }
 
-    public static void adminLoop(String url, String user, String password)
+    public static int adminLoop(String url, String user, String password)
     {
         Scanner in = new Scanner(System.in);
 
@@ -729,7 +730,7 @@ public class Main {
             }
             else if (userChoice == 5)
             {
-                break;
+                return -1;
             }
             else 
             {
@@ -737,23 +738,10 @@ public class Main {
             }
         }
         
-        in.close();
     }
     
-    
-    public static void main (String[]args)
-    {
-        // store the url, users name and users password to connect to our db
-        String url = "jdbc:postgresql://localhost:5432/Project";
-
+    public static void run_program(String url, String user, String password){
         Scanner in = new Scanner(System.in);
-
-        System.out.println("Enter username");
-        String user = in.nextLine();
-
-        System.out.println("Enter password");
-        String password = in.nextLine();
-
         while (true)
         {
             System.out.println("Enter '1' for user functionality, '2' for trainer functionality, and '3' for admin functionality, and 4 to exit the program");
@@ -781,6 +769,22 @@ public class Main {
                 System.out.println("invalid choice");
             }
         }
+    }
+    
+    public static void main (String[]args)
+    {
+        // store the url, users name and users password to connect to our db
+        String url = "jdbc:postgresql://localhost:5432/Project";
+
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("Enter username");
+        String user = in.nextLine();
+
+        System.out.println("Enter password");
+        String password = in.nextLine();
+
+        run_program(url, user, password);
         
         in.close();
     }
