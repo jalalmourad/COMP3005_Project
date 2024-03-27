@@ -51,15 +51,3 @@ Values
 ('barbell','2022-08-02'),
 ('bench','2020-11-12');
 -----------------------
-CREATE TABLE Schedule(
-    schedule_id SERIAL,
-    trainer_id int,
-    appointment_time time not null,
-    appointment_date date not null,
-    appointment_room int not null,
-    joining_fee int default 10,
-    max_members int default 1,
-    primary key (schedule_id),
-    foreign key (trainer_id) references trainers
-
-);
