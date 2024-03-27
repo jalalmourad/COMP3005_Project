@@ -675,11 +675,11 @@ public class Main {
             {
                 System.out.println("Enter trainer id");
                 int trainer_id = Integer.parseInt(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment time (HH:MM:SS)");
                 Time appointment_time = Time.valueOf(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment Date: (YYYY-MM-DD)");
                 Date appointment_date = Date.valueOf(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment Room");
                 int appointment_room = Integer.parseInt(in.nextLine());
 
                 scheduleManagement(url, user, password, trainer_id, appointment_time, appointment_date, appointment_room);
