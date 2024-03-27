@@ -100,15 +100,15 @@ public class Main {
             }
 
             statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO member_booking (member_id, schedule_id) VALUES(" + member_id+ "', '" + userChoice + "')");
+            statement.executeUpdate("INSERT INTO member_booking (member_id, schedule_id) VALUES(" + member_id+ ", " + userChoice + ")");
 
             statement = connection.createStatement();
-            statement.executeQuery("SELECT fee FROM schedule WHERE (SELECT COUNT(*) FROM member_booking WHERE schedule.schedule_id = member_booking.schedule_id) < max_members and schedule_id = '" + userChoice + "'");
+            statement.executeQuery("SELECT joining_fee FROM schedule WHERE (SELECT COUNT(*) FROM member_booking WHERE schedule.schedule_id = member_booking.schedule_id) < max_members and schedule_id = " + userChoice + "");
             resultSet = statement.getResultSet();
             resultSet.next();
 
             statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO billing (member_id, amount, schedule_id) VALUES(" + member_id+ "', '" + resultSet.getInt("joining_fee") + "','" + userChoice + "')");
+            statement.executeUpdate("INSERT INTO billing (member_id, amount, schedule_id) VALUES(" + member_id+ ", " + resultSet.getInt("joining_fee") + "," + userChoice + ")");
 
             connection.close();
 
@@ -164,8 +164,9 @@ public class Main {
 
             String query = "UPDATE members SET member_weight = ? WHERE member_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, member_id);
-                prepare.setInt(2, member_weight);
+                prepare.setInt(1, member_weight);
+                prepare.setInt(2, member_id);
+
 
                 prepare.executeUpdate();
             }
@@ -183,8 +184,9 @@ public class Main {
 
             String query = "UPDATE members SET member_time = ? WHERE member_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, member_id);
-                prepare.setInt(2, member_time);
+                prepare.setInt(1, member_time);
+                prepare.setInt(2, member_id);
+
 
                 prepare.executeUpdate();
             }
@@ -202,8 +204,9 @@ public class Main {
 
             String query = "UPDATE members SET track_exercise_routine = ? WHERE member_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, member_id);
-                prepare.setString(2, routine);
+                prepare.setString(1, routine);
+                prepare.setInt(2, member_id);
+
 
                 prepare.executeUpdate();
             }
@@ -220,29 +223,29 @@ public class Main {
             Connection connection = DriverManager.getConnection(url, user, password);
 
             Statement statement = connection.createStatement();
-            statement.executeQuery("SELECT * FROM members WHERE id = '" + member_id + "';");
+            statement.executeQuery("SELECT * FROM members WHERE member_id = '" + member_id + "';");
             ResultSet resultSet = statement.getResultSet();
+            while (resultSet.next()) {
+                // display user by id and name
+                System.out.print("Dashboard for user " + member_id + " : ");
+                System.out.print(resultSet.getString("first_name") + " ");
+                System.out.print(resultSet.getString("last_name") + "\n\n");
 
-            // display user by id and name
-            System.out.print("Dashboard for user " + member_id + " : ");
-            System.out.print(resultSet.getString("first_name") + " ");
-            System.out.print(resultSet.getString("last_name") + "\n\n");
+                // display user routine
+                System.out.print("Exercise Routine:\n");
+                System.out.print(resultSet.getString("track_exercise_routine") + "\n\n");
 
-            // display user routine
-            System.out.print("Exercise Routine:\n");
-            System.out.print(resultSet.getString("track_exercise_routine") + "\n\n");
-
-            // display the users health statistics
-            System.out.print("Fitness Statistics:\n");
-            System.out.print(resultSet.getInt("member_height") + "\t");
-            System.out.print(resultSet.getInt("member_weight") + "\t");
-            System.out.print(resultSet.getInt("member_time") + "\t");
-
+                // display the users health statistics
+                System.out.print("Fitness Statistics:\n");
+                System.out.print(resultSet.getInt("member_height") + "\t");
+                System.out.print(resultSet.getInt("member_weight") + "\t");
+                System.out.print(resultSet.getInt("member_time") + "\t");
+            }
             // get the goals completed by this user
-            statement.executeQuery("SELECT * FROM goals WHERE id='" + member_id + "' and is_achieved = 'true';");
+            statement.executeQuery("SELECT * FROM goals WHERE member_id='" + member_id + "' and is_achieved = 'true';");
             resultSet = statement.getResultSet();
 
-            System.out.print("Achieved Goals:\n");
+            System.out.print("\nAchieved Goals:\n");
             while (resultSet.next()) {
                 System.out.print(resultSet.getString("goal_description") + "\t");
                 System.out.print(resultSet.getString("achieve_by_date") + "\t");
