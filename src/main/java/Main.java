@@ -103,7 +103,7 @@ public class Main {
             statement.executeUpdate("INSERT INTO member_booking (member_id, schedule_id) VALUES(" + member_id+ ", " + userChoice + ")");
 
             statement = connection.createStatement();
-            statement.executeQuery("SELECT joining_fee FROM schedule WHERE (SELECT COUNT(*) FROM member_booking WHERE schedule.schedule_id = member_booking.schedule_id) < max_members and schedule_id = " + userChoice + "");
+            statement.executeQuery("SELECT joining_fee FROM schedule WHERE schedule_id = " + userChoice + "");
             resultSet = statement.getResultSet();
             resultSet.next();
 
