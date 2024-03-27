@@ -725,7 +725,7 @@ public class Main {
                 int schedule_id = Integer.parseInt(in.nextLine());
                 System.out.println("Enter appointment time (HH:MM:SS)");
                 Time appointment_time = Time.valueOf(in.nextLine());
-                System.out.println("Enter appointment Date: (YY:MM:DD)");
+                System.out.println("Enter appointment Date: (YYYY-MM-DD)");
                 Date appointment_date = Date.valueOf(in.nextLine());
                 System.out.println("Enter appointment Room");
                 int appointment_room = Integer.parseInt(in.nextLine());
