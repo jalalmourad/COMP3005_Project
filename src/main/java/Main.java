@@ -357,9 +357,11 @@ public class Main {
             statement.executeQuery("SELECT * FROM Equipment");
             ResultSet resultSet = statement.getResultSet();
             while (resultSet.next()) {
+                System.out.println("|");
                 System.out.print(resultSet.getInt("equipment_id") + "\t");
-                System.out.print(resultSet.getString("equipment_name") + "\t");
+                System.out.print(resultSet.getString("equipment_name") +"\t");
                 System.out.print(resultSet.getDate("equipment_maintenance_date"));
+                System.out.println("\t");
             }
         } catch (Exception e) {
             System.out.println("Error: " + e);
@@ -427,6 +429,9 @@ public class Main {
             Class.forName("org.postgresql.Driver");
             Connection connection = DriverManager.getConnection(url, user, password);
 
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM member_booking WHERE schedule_id = " + schedule_id );
+
             String query = "DELETE FROM Schedule WHERE schedule_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
                 prepare.setInt(1, schedule_id);
@@ -434,8 +439,7 @@ public class Main {
                 prepare.executeUpdate();
             }
 
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM member_booking WHERE schedule_id = '" + schedule_id + "'");
+
 
             
         } catch (Exception e) {
@@ -451,10 +455,11 @@ public class Main {
             Class.forName("org.postgresql.Driver");
             Connection connection = DriverManager.getConnection(url, user, password);
 
-            String query = "UPDATE Schedule SET booking_time = ? WHERE schedule_id = ?";
+            String query = "UPDATE Schedule SET appointment_time = ? WHERE schedule_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, schedule_id);
-                prepare.setTime(2, java.sql.Time.valueOf(time));
+                prepare.setTime(1, java.sql.Time.valueOf(time));
+                prepare.setInt(2, schedule_id);
+
 
                 prepare.executeUpdate();
             }
@@ -470,10 +475,11 @@ public class Main {
             Class.forName("org.postgresql.Driver");
             Connection connection = DriverManager.getConnection(url, user, password);
 
-            String query = "UPDATE Schedule SET booking_date = ? WHERE schedule_id = ?";
+            String query = "UPDATE Schedule SET appointment_date = ? WHERE schedule_id = ?";
             try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, schedule_id);
-                prepare.setDate(2, java.sql.Date.valueOf(date));
+                prepare.setDate(1, java.sql.Date.valueOf(date));
+                prepare.setInt(2, schedule_id);
+
 
                 prepare.executeUpdate();
             }
@@ -489,7 +495,7 @@ public class Main {
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url, user, password);
 
-            String availabilityQuery = "SELECT COUNT(*) FROM Schedule WHERE booking_date = ? AND room_number = ?";
+            String availabilityQuery = "SELECT COUNT(*) FROM Schedule WHERE appointment_date = ? AND appointment_room = ?";
             try(PreparedStatement p = conn.prepareStatement(availabilityQuery)){
                 p.setDate(1, java.sql.Date.valueOf(date));
                 p.setInt(2, room_num);
@@ -520,10 +526,11 @@ public class Main {
                 Class.forName("org.postgresql.Driver");
                 Connection connection = DriverManager.getConnection(url, user, password);
 
-                String query = "UPDATE Schedule SET room_number = ? WHERE schedule_id = ?";
+                String query = "UPDATE Schedule SET appointment_room = ? WHERE schedule_id = ?";
                 try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                    prepare.setInt(1, schedule_id);
-                    prepare.setInt(2, room_num);
+                    prepare.setInt(1, room_num);
+                    prepare.setInt(2, schedule_id);
+
 
                     prepare.executeUpdate();
                 }
@@ -715,11 +722,11 @@ public class Main {
             {
                 System.out.println("Enter schedule id");
                 int schedule_id = Integer.parseInt(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment time (HH:MM:SS)");
                 Time appointment_time = Time.valueOf(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment Date: (YY:MM:DD)");
                 Date appointment_date = Date.valueOf(in.nextLine());
-                System.out.println("Enter member id");
+                System.out.println("Enter appointment Room");
                 int appointment_room = Integer.parseInt(in.nextLine());
                 classScheduleUpdate(url, user, password, schedule_id, appointment_room, appointment_date, appointment_time);
             }
