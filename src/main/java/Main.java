@@ -310,12 +310,13 @@ public class Main {
             if (resultSet.getInt("count") > 0) {
                 System.out.print("Unable to book at specified time due to conflicts in the schedule:\n");
             }
+            else{
+                // If available we then book for the trainer that time and space.
+                statement = connection.createStatement();
+                statement.executeUpdate("INSERT INTO Schedule ( trainer_id, appointment_time, appointment_date, appointment_room) VALUES ("  +trainer_id + ", '" + appointment_time + "', '" + appointment_date + "', '" + appointment_room + "');");
 
-            // If available we then book for the trainer that time and space.
-            statement = connection.createStatement();
-            statement.executeUpdate("INSERT INTO Schedule ( trainer_id, appointment_time, appointment_date, appointment_room) VALUES ("  +trainer_id + ", '" + appointment_time + "', '" + appointment_date + "', '" + appointment_room + "');");
-
-            connection.close();
+                connection.close();
+            }
 
         } catch (Exception e) {
             System.out.println("Error: " + e);
