@@ -586,9 +586,9 @@ public class Main {
 
             while (resultSet.next())
             {
-                System.out.print("Billing member: ");
+                System.out.print("Billing member id: ");
                 System.out.print(resultSet.getInt("member_id") + "\n");
-                System.out.print(resultSet.getInt("amount") + "\n");
+                System.out.print("amount owed ($): " + resultSet.getInt("amount") + ".00\n");
                 // here we would do integrated billing by passing a users payment information into the related service
             }
 
