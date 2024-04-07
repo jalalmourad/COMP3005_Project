@@ -352,7 +352,47 @@ public class Main {
         }
     }
 
-    //Returns the most recent date the equipment had maintenance
+    //
+    // Administrator Functions
+    //
+
+    /**
+     * Schedule id - used to identify unique schedules
+     * member id - member that is using the room
+     * trainer id - trainer that is using the room
+     * appointment time - time of room booking --> to consider: will this be a time range? i.e 8:00 - 9:00
+     * appointment date - date of room booking
+     * appointment room - int to identify room num
+     * <p>
+     * Administrator should have option to cancel a room booking -> delete a row of schedule_id, member_id, trainer_id, appointment_time, appointment_date and appointment_room
+     * Administrator should have option to reschedule room booking -> update time and/or date of room booking and/or appointment_room
+     */
+     public static void manageRoomBooking(String url, String user, String password, int schedule_id) {
+        Scanner in = new Scanner(System.in);
+
+        System.out.println("cancelling room booking with id: " + schedule_id);
+
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager.getConnection(url, user, password);
+
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM member_booking WHERE schedule_id = " + schedule_id );
+
+            String query = "DELETE FROM Schedule WHERE schedule_id = ?";
+            try (PreparedStatement prepare = connection.prepareStatement(query)) {
+                prepare.setInt(1, schedule_id);
+
+                prepare.executeUpdate();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+     //Returns the most recent date the equipment had maintenance
     public static void equipmentMaintenanceMonitoring(String url, String user, String password) {
 
         try {
@@ -373,182 +413,7 @@ public class Main {
             System.out.println("Error: " + e);
         }
     }
-
-    //
-    // Administrator Functions
-    //
-
-    /**
-     * Schedule id - used to identify unique schedules
-     * member id - member that is using the room
-     * trainer id - trainer that is using the room
-     * appointment time - time of room booking --> to consider: will this be a time range? i.e 8:00 - 9:00
-     * appointment date - date of room booking
-     * appointment room - int to identify room num
-     * <p>
-     * Administrator should have option to cancel a room booking -> delete a row of schedule_id, member_id, trainer_id, appointment_time, appointment_date and appointment_room
-     * Administrator should have option to reschedule room booking -> update time and/or date of room booking and/or appointment_room
-     */
-    public static void manageRoomBooking(String url, String user, String password, int schedule_id) {
-        Scanner in = new Scanner(System.in);
-
-        System.out.println("1. Cancel booking\n2. Reschedule Booking");
-
-        while (true) {
-            String c = in.nextLine();
-            int userChoice = Integer.parseInt(c);
-            if (userChoice == 1) {
-                cancelRoomBooking(url, user, password, schedule_id);
-                return;
-            } else if (userChoice == 2) {
-                System.out.println("New booking time (HH:mm:ss): ");
-                String time = in.nextLine();
-
-                System.out.println("New booking date (YYYY-MM-DD): ");
-                String date = in.nextLine();
-
-                System.out.println("New booking room: ");
-                String r = in.nextLine();
-                int room = Integer.parseInt(r);
-
-                rescheduleBookingTime(url, user, password, schedule_id, time);
-                rescheduleBookingDate(url, user, password, schedule_id, date);
-                rescheduleBookingRoom(url, user, password, schedule_id, room, date);
-            }else if (userChoice == 3)
-            {
-                break;
-            }
-            else {
-                System.out.println("Invalid option. Please select either 1 or 2");
-            }
-        }
-    }
-
-    /*
-    Helper functions for room booking management
-    */
-
-    // delete room booking
-    public static void cancelRoomBooking(String url, String user, String password, int schedule_id){
-        
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            Connection connection = DriverManager.getConnection(url, user, password);
-
-            Statement statement = connection.createStatement();
-            statement.executeUpdate("DELETE FROM member_booking WHERE schedule_id = " + schedule_id );
-
-            String query = "DELETE FROM Schedule WHERE schedule_id = ?";
-            try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setInt(1, schedule_id);
-
-                prepare.executeUpdate();
-            }
-
-
-
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    // time must be of hrs:mins:secs format
-    public static void rescheduleBookingTime (String url, String user, String password, int schedule_id, String time){
-        
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            Connection connection = DriverManager.getConnection(url, user, password);
-
-            String query = "UPDATE Schedule SET appointment_time = ? WHERE schedule_id = ?";
-            try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setTime(1, java.sql.Time.valueOf(time));
-                prepare.setInt(2, schedule_id);
-
-
-                prepare.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void rescheduleBookingDate (String url, String user, String password, int schedule_id, String date){
-        
-
-        try {
-            Class.forName("org.postgresql.Driver");
-            Connection connection = DriverManager.getConnection(url, user, password);
-
-            String query = "UPDATE Schedule SET appointment_date = ? WHERE schedule_id = ?";
-            try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                prepare.setDate(1, java.sql.Date.valueOf(date));
-                prepare.setInt(2, schedule_id);
-
-
-                prepare.executeUpdate();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private static boolean isRoomBooked(String url, String user, String password, String date, int room_num){
-        
-
-        try{
-            Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection(url, user, password);
-
-            String availabilityQuery = "SELECT COUNT(*) FROM Schedule WHERE appointment_date = ? AND appointment_room = ?";
-            try(PreparedStatement p = conn.prepareStatement(availabilityQuery)){
-                p.setDate(1, java.sql.Date.valueOf(date));
-                p.setInt(2, room_num);
-
-                try(ResultSet results = p.executeQuery()){
-                    results.next();
-                    int bookingCount = results.getInt(1);
-                    return bookingCount > 0;
-                }
-            }
-
-        }
-        catch(Exception e){
-            e.printStackTrace();
-            // assume room booked in the case of any errors
-            return true;
-        }
-    }
-
-    public static void rescheduleBookingRoom (String url, String user, String password, int schedule_id, int room_num, String date){
-        
-
-        if(isRoomBooked(url, user, password, date, room_num)){
-            System.out.println("Room is booked for this time slot!");
-        }
-        else{
-            try {
-                Class.forName("org.postgresql.Driver");
-                Connection connection = DriverManager.getConnection(url, user, password);
-
-                String query = "UPDATE Schedule SET appointment_room = ? WHERE schedule_id = ?";
-                try (PreparedStatement prepare = connection.prepareStatement(query)) {
-                    prepare.setInt(1, room_num);
-                    prepare.setInt(2, schedule_id);
-
-
-                    prepare.executeUpdate();
-                }
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-
+    
     // Updates the class room number, Date and Time.
     public static void classScheduleUpdate (String url, String user, String password, int schedule_id, int appointment_room, Date appointment_date, Time appointment_time ){
 
